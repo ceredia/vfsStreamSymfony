@@ -42,7 +42,7 @@ trait vfsAssertions
     private static function assertVirtualFile($path, $exists)
     {
         $filename = self::extractFilename($path);
-        $dir = vfsStream::getExistingDirectoryFromPath($path);
+        $dir = vfsStream::getExistingDirectory($path);
         self::assertThat(
             $dir->hasChild($filename),
             $exists ? self::isTrue() : self::isFalse(),

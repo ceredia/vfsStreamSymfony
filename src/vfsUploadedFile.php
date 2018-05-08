@@ -140,7 +140,7 @@ class vfsUploadedFile extends UploadedFile
         if ($this->makeDirs) {
             $this->parent = vfsStream::copyPathFromFilesystem($directory);
         } else {
-            $this->parent = vfsStream::getExistingDirectoryFromPath($directory);
+            $this->parent = vfsStream::getExistingDirectory($directory);
         }
         $this->vfsStreamFile->at($this->parent);
         return $this;
