@@ -24,29 +24,24 @@ trait vfsAssertions
      */
     protected static function assertVirtualFileExists($path)
     {
-        self::assertVirtualFile($path, true);
-    }
-
-    /**
-     * @param string $path
-     */
-    protected static function assertVirtualFileNotExists($path)
-    {
-        self::assertVirtualFile($path, false);
-    }
-
-    /**
-     * @param string $path
-     * @param bool $exists
-     */
-    private static function assertVirtualFile($path, $exists)
-    {
         $filename = self::extractFilename($path);
         $dir = vfsStream::getExistingDirectory($path);
         self::assertThat(
             $dir->hasChild($filename),
-            $exists ? self::isTrue() : self::isFalse(),
+            self::isTrue(),
             'The file "' . $path . '" does not exist.'
+        );
+    }
+
+    /**
+     * @param vfsStreamFile $vfsFile
+     */
+    protected static function assertVirtualFileDeleted($vfsFile)
+    {
+        self::assertEquals(
+            vfsStream::SCHEME . '://' . $vfsFile->getName(),
+            $vfsFile->url(),
+            'The file "' . $vfsFile->url() . '" has not been deleted.'
         );
     }
 }
